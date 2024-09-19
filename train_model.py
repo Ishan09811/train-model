@@ -9,7 +9,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # Define file path
-file_path = 'dialogs.txt'
+file_path = '/home/runner/work/train-model/train-model/dialogs.txt'
 
 # Load dataset
 df = pd.read_csv(file_path, delimiter='\t', header=None, names=['input_text', 'target_text'])
