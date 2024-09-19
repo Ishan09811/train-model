@@ -8,9 +8,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Checkout the repository with Git LFS support
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+        with:
+          lfs: true  # This ensures Git LFS files are checked out
+
+      # Install Git LFS (if needed)
+      - name: Install Git LFS
+        run: |
+          sudo apt-get install git-lfs
+          git lfs install
+          git lfs pull  # Fetch LFS files
 
       # Set up Python 3.9
       - name: Set up Python
@@ -18,13 +27,13 @@ jobs:
         with:
           python-version: 3.9
 
-      # Install dependencies
+      # Install required packages
       - name: Install required packages
         run: |
           python -m pip install --upgrade pip
           pip install numpy tflite-runtime tensorflow keras pandas
 
-      # Run the Python test script
-      - name: Run the chatbot test with input "hi"
+      # Run the chatbot test with input "hi"
+      - name: Run the chatbot test
         run: |
           python test.py
