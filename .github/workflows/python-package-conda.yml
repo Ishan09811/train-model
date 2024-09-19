@@ -30,6 +30,10 @@ jobs:
       # Prepare data and train the model
       - name: Train the model with large data
         run: |
+          sudo fallocate -l 4G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
           python train_model.py
 
       # Commit and push the trained model to the repository
