@@ -28,6 +28,9 @@ input_padded = pad_sequences(input_sequence, maxlen=max_len_input, padding='post
 # Convert the input to the correct format
 input_data = np.array(input_padded, dtype=np.float32)
 
+# Assuming input_data is a sequence with shape (50,)
+input_data = np.expand_dims(input_data, axis=0)  # Reshape to (1, 50)
+
 # Set the input tensor for the model
 interpreter.set_tensor(input_details[0]['index'], input_data)
 
