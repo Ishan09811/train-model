@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import re
+import pickle
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, LSTM, Dense
@@ -36,6 +37,12 @@ max_len_target = 50
 # Tokenization
 tokenizer = Tokenizer(num_words=vocab_size, filters='', lower=False, split=' ')
 tokenizer.fit_on_texts(input_texts + target_texts)
+
+# Save the tokenizer to a file
+with open('tokenizer.pkl', 'wb') as handle:
+    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+print("Tokenizer saved successfully.")
 
 # Convert text sequences to integer sequences
 input_sequences = tokenizer.texts_to_sequences(input_texts)
