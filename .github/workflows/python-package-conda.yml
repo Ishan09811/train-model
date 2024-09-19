@@ -21,6 +21,11 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Install Git LFS
+        run: |
+          sudo apt-get install git-lfs
+          git lfs install
+
       # Install dependencies
       - name: Install dependencies
         run: |
@@ -35,6 +40,12 @@ jobs:
           sudo mkswap /swapfile
           sudo swapon /swapfile
           python train_model.py
+
+      - name: Track large model files with Git LFS
+        run: |
+          git lfs track "chat_model_large.h5"
+          git lfs track "chat_model_large.tflite"
+          git add .gitattributes
 
       # Commit and push the trained model to the repository
       - name: Commit and push the trained model
