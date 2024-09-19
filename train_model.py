@@ -93,6 +93,12 @@ model.save('chat_model_large.h5')
 
 # Convert to TensorFlow Lite format (optional)
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.target_spec.supported_ops = [
+    tf.lite.OpsSet.TFLITE_BUILTINS,  # TFLite default ops
+    tf.lite.OpsSet.SELECT_TF_OPS     # Enable Select TF ops for unsupported ops
+]
+converter._experimental_lower_tensor_list_ops = False
+converter.experimental_enable_resource_variables = True
 tflite_model = converter.convert()
 with open('chat_model_large.tflite', 'wb') as f:
     f.write(tflite_model)
