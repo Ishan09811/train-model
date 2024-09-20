@@ -20,11 +20,13 @@ input_text = "hi"
 input_sequence = tokenizer.texts_to_sequences([input_text])
 input_padded = pad_sequences(input_sequence, maxlen=50, padding='post')
 
-# Convert the input to the correct format
+# Convert the input to the correct format (should be shape (1, 50))
 input_data = np.array(input_padded, dtype=np.float32)
-input_data = np.expand_dims(input_data, axis=0)  # Ensure shape (1, 50)
 
-# Set the input tensor for the model
+# Check input shape
+print(f"Input data shape before setting tensor: {input_data.shape}")  # Should be (1, 50)
+
+# Set the input tensor for the model (ensure shape (1, 50))
 interpreter.set_tensor(input_details[0]['index'], input_data)
 
 # Run inference
