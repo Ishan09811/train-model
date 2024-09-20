@@ -18,16 +18,12 @@ output_details = interpreter.get_output_details()
 # Input "hi" to be tokenized and padded
 input_text = "hi"
 input_sequence = tokenizer.texts_to_sequences([input_text])
-input_padded = pad_sequences(input_sequence, maxlen=50, padding='post')
+input_padded = pad_sequences(input_sequence, maxlen=1, padding='post')  # Change maxlen to 1
 
-# Convert the input to the correct format (should be shape (1, 50))
-input_data = np.array(input_padded, dtype=np.float32)
+# Convert the input to the correct format
+input_data = np.array(input_padded, dtype=np.float32)  # Shape will be (1, 1)
 
-# Check input shape
-print(f"Input data shape before setting tensor: {input_data.shape}")  # Should be (1, 50)
-print("Input details:", input_details)
-
-# Set the input tensor for the model (ensure shape (1, 50))
+# Set the input tensor for the model
 interpreter.set_tensor(input_details[0]['index'], input_data)
 
 # Run inference
